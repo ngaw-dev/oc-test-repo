@@ -141,7 +141,7 @@ $count = $service->reindexAllPosts();
 Or from the CLI (what you normally use):
 
 ```sh
-ddev exec ./vendor/bin/sake dev/tasks/IndexSearchDocumentsTask
+ddev exec ./vendor/bin/sake tasks:IndexSearchDocumentsTask
 ```
 
 ## 5. Listing indexed documents (admin-style)
@@ -218,6 +218,6 @@ Adding a new field: add it to the YAML, extend
 throw `RuntimeException` at index time), then recreate the index in dev mode:
 
 ```sh
-ddev exec ./vendor/bin/sake dev/tasks/CreateSearchIndexTask flush=1
-ddev exec ./vendor/bin/sake dev/tasks/ReindexSearchTask
+ddev exec ./vendor/bin/sake tasks:CreateSearchIndexTask flush=1
+ddev exec ./vendor/bin/sake tasks:ReindexSearchTask
 ```

@@ -6,11 +6,11 @@ OpenSearch search domain — the service for indexing and querying the OpenSearc
 
 ## Ownership
 
-- `OpenSearchService.php` (`AmolSW\OpenSearch`) — the only entry point for callers (controllers, tasks, jobs): `getClient()`, `getIndexName()`, `createIndexIfNotExists()`, `deleteIndex()`, `searchDocuments()` (normalized results), `getAllIndexedPageIds()`, `deleteAllDocuments()`, `reindexAllPosts()`, `indexPost()` (Live-stage guard, single upsert), `deletePost()` (404-tolerant), `getPublishablePosts()`. No listing/frontend logic lives here — filtering, DB fallback, and relevance ordering belong to `App\Controllers\AppSearchController` (app module) and the page controllers. Local DDEV cluster comes from the `ddev-opensearch` add-on (service `opensearch`, HTTP, security plugin disabled); rebuild via `sake dev/tasks/ReindexSearchTask`
+- `OpenSearchService.php` (`AmolSW\OpenSearch`) — the only entry point for callers (controllers, tasks, jobs): `getClient()`, `getIndexName()`, `createIndexIfNotExists()`, `deleteIndex()`, `searchDocuments()` (normalized results), `getAllIndexedPageIds()`, `deleteAllDocuments()`, `reindexAllPosts()`, `indexPost()` (Live-stage guard, single upsert), `deletePost()` (404-tolerant), `getPublishablePosts()`. No listing/frontend logic lives here — filtering, DB fallback, and relevance ordering belong to `App\Controllers\AppSearchController` (app module) and the page controllers. Local DDEV cluster comes from the `ddev-opensearch` add-on (service `opensearch`, HTTP, security plugin disabled); rebuild via `sake tasks:ReindexSearchTask`
 - `OpenSearchClientFactory.php` (`AmolSW\OpenSearch`) — `createClient()` from `OPENSEARCH_*` env vars (TLS verification on by default; `OPENSEARCH_VERIFY_SSL=false` opts out for self-signed certs), `getIndexName()` (lowercased `OPENSEARCH_INDEX_NAME`); mapping config is keyed to this class but defined at the PROJECT level (`app/_config/opensearch.yml`) — the module ships no mapping
-- `Tasks/CreateSearchIndexTask.php` (`AmolSW\OpenSearch\Tasks`) — `sake dev/tasks/CreateSearchIndexTask` creates the index with the explicit mapping from the project-level mapping YAML (via facade); in dev mode deletes + recreates so mapping changes apply (mapping only takes effect at creation time)
-- `Tasks/IndexSearchDocumentsTask.php` (`AmolSW\OpenSearch\Tasks`) — `sake dev/tasks/IndexSearchDocumentsTask` bulk-indexes all published BlogPosts (delegates to `OpenSearchService::reindexAllPosts()`)
-- `Tasks/CreateSearchReindexJobTask.php` (`AmolSW\OpenSearch\Tasks`) — `sake dev/tasks/CreateSearchReindexJobTask` seeds the recurring nightly `SearchReindexJob` (3am); safe to re-run, queuedjobs deduplicates by signature
+- `Tasks/CreateSearchIndexTask.php` (`AmolSW\OpenSearch\Tasks`) — `sake tasks:CreateSearchIndexTask` creates the index with the explicit mapping from the project-level mapping YAML (via facade); in dev mode deletes + recreates so mapping changes apply (mapping only takes effect at creation time)
+- `Tasks/IndexSearchDocumentsTask.php` (`AmolSW\OpenSearch\Tasks`) — `sake tasks:IndexSearchDocumentsTask` bulk-indexes all published BlogPosts (delegates to `OpenSearchService::reindexAllPosts()`)
+- `Tasks/CreateSearchReindexJobTask.php` (`AmolSW\OpenSearch\Tasks`) — `sake tasks:CreateSearchReindexJobTask` seeds the recurring nightly `SearchReindexJob` (3am); safe to re-run, queuedjobs deduplicates by signature
 - `Jobs/SearchIndexUpdateJob.php` (`AmolSW\OpenSearch\Jobs`) — per-post sync after publish/unpublish/archive: re-reads Live stage at run time, upserts via `indexPost()` or deletes via `deletePost()`
 - `Jobs/SearchReindexJob.php` (`AmolSW\OpenSearch\Jobs`) — nightly 3am full rebuild (wipe + reindex); `afterComplete()` chains `SearchIndexConsistencyJob` and re-queues the next nightly run (queuedjobs are one-shot — the job self-perpetuates the schedule); `queueNextNightlyRun()` is only the seed entry point
 - `Jobs/SearchIndexConsistencyJob.php` (`AmolSW\OpenSearch\Jobs`) — verifies indexed PageIds == publishable post IDs; on mismatch re-queues `SearchReindexJob` with attempt+1 (cap 3, then throws so queuedjobs marks it Broken)
@@ -25,7 +25,7 @@ OpenSearch search domain — the service for indexing and querying the OpenSearc
 - Doc `_id` always equals BlogPost ID (PageId)
 - Only the Live stage is indexed; draft-only and archived posts must never appear in the index
 - Nightly chain: 3am `SearchReindexJob` → `SearchIndexConsistencyJob` → retry (max 3) → Broken
-- Queue processing requires cron: `* * * * * cd <project root> && ./vendor/bin/sake dev/tasks/ProcessJobQueueTask`
+- Queue processing requires cron: `* * * * * cd <project root> && ./vendor/bin/sake tasks:ProcessJobQueueTask`
 
 ## Work Guidance
 

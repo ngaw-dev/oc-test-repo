@@ -126,8 +126,8 @@ How it works:
 
 ```sh
 ddev exec ./vendor/bin/sake dev/build flush=1
-ddev exec ./vendor/bin/sake dev/tasks/CreateSearchIndexTask
-ddev exec ./vendor/bin/sake dev/tasks/IndexSearchDocumentsTask
+ddev exec ./vendor/bin/sake tasks:CreateSearchIndexTask
+ddev exec ./vendor/bin/sake tasks:IndexSearchDocumentsTask
 ```
 
 `CreateSearchIndexTask` deletes and recreates the index in dev mode, so mapping
@@ -139,13 +139,13 @@ Queue a per-post sync on publish/unpublish (config-driven, active after flush)
 and seed the nightly full rebuild job (3am):
 
 ```sh
-ddev exec ./vendor/bin/sake dev/tasks/CreateSearchReindexJobTask
+ddev exec ./vendor/bin/sake tasks:CreateSearchReindexJobTask
 ```
 
 Queue processing requires cron (every minute):
 
 ```cron
-* * * * * cd <project root> && ./vendor/bin/sake dev/tasks/ProcessJobQueueTask
+* * * * * cd <project root> && ./vendor/bin/sake tasks:ProcessJobQueueTask
 ```
 
 Inspect queue state in the CMS at `/admin/queuedjobs`.
