@@ -56,11 +56,11 @@ HTML. See [docs/SETUP.md](docs/SETUP.md) section 5.
 ## Usage
 
 - All callers go through the `AmolSW\OpenSearch\OpenSearchService` facade.
-- `sake dev/tasks/CreateSearchIndexTask` — create the index (dev mode recreates it).
-- `sake dev/tasks/IndexSearchDocumentsTask` — bulk-index all published posts.
-- `sake dev/tasks/CreateSearchReindexJobTask` — seed the nightly 3am reindex job.
+- `sake tasks:CreateSearchIndexTask` — create the index (dev mode recreates it).
+- `sake tasks:IndexSearchDocumentsTask` — bulk-index all published posts.
+- `sake tasks:CreateSearchReindexJobTask` — seed the nightly 3am reindex job.
 - Publishing/unpublishing a BlogPost queues a sync job automatically.
-- Queue processing requires cron: `* * * * * ./vendor/bin/sake dev/tasks/ProcessJobQueueTask`.
+- Queue processing requires cron: `* * * * * ./vendor/bin/sake tasks:ProcessJobQueueTask`.
 
 ## Local development with DDEV
 
