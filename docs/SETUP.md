@@ -170,10 +170,12 @@ CMS admin for indexed documents: `/admin/search-data`.
 ## 9. Run the tests
 
 Tests run against the real DDEV cluster using a dedicated `blog-test-index`
-index (never the dev index):
+index (never the dev index). The module ships its own phpunit config and
+bootstrap (registers the `AmolSW\OpenSearch\Tests` namespace — no project
+autoload-dev changes needed):
 
 ```sh
-ddev exec env SS_PHPUNIT_FLUSH=1 php vendor/bin/phpunit modules/silverstripe-opensearch/tests
+ddev exec env SS_PHPUNIT_FLUSH=1 php vendor/bin/phpunit -c modules/silverstripe-opensearch/phpunit.xml
 ```
 
 ## 10. Troubleshooting
