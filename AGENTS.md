@@ -2,7 +2,7 @@
 
 ## Purpose
 
-OpenSearch search domain — the service for indexing and querying the OpenSearch cluster. Setup guide: `docs/SETUP.md`; sample code: `docs/SAMPLES.md`.
+OpenSearch search domain — the service for indexing and querying the OpenSearch cluster. Setup guide: `docs/SETUP.md`; sample code: `docs/SAMPLES.md`; production cluster reference templates (redacted docker-compose/dashboards/nginx): `docs/examples/`.
 
 ## Ownership
 
