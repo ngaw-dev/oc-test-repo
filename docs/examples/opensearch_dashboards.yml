@@ -1,0 +1,18 @@
+# Redacted example: Dashboards config for a 2-node OpenSearch cluster,
+# served behind a reverse proxy at https://opensearch.example.com/dashboards
+#
+# NOTE: opensearch.password is a literal string here, but it references the
+# same env-injected value used by docker-compose.yml. Keep the real password
+# only in the sibling .env file (never commit this file with a real secret).
+server.host: "0.0.0.0"
+server.port: 5601
+opensearch.hosts: ["https://opensearch-node1:9200", "https://opensearch-node2:9200"]
+opensearch.username: "admin"
+opensearch.password: "<strong-password>"
+# Demo TLS certs are self-signed; verification is disabled for the internal
+# cluster network. Use real certs and enable verification for production.
+opensearch.ssl.verificationMode: none
+# Required so dashboards works behind nginx at https://opensearch.example.com/dashboards
+server.basePath: "/dashboards"
+server.rewriteBasePath: true
+server.name: "opensearch-dashboards"

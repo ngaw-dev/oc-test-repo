@@ -62,6 +62,7 @@ HTML. See [docs/SETUP.md](docs/SETUP.md) section 5.
 - `sake tasks:CreateSearchReindexJobTask` — seed the nightly 3am reindex job.
 - Publishing/unpublishing a BlogPost queues a sync job automatically.
 - Queue processing requires cron: `* * * * * ./vendor/bin/sake tasks:ProcessJobQueueTask`.
+- Production cluster reference (2-node Docker Compose + nginx + Dashboards): [docs/examples/](docs/examples/), described in [docs/SETUP.md](docs/SETUP.md) section 10.
 
 ## Local development with DDEV
 

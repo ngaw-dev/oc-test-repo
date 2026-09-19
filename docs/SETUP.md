@@ -178,7 +178,32 @@ autoload-dev changes needed):
 ddev exec env SS_PHPUNIT_FLUSH=1 php vendor/bin/phpunit -c modules/silverstripe-opensearch/phpunit.xml
 ```
 
-## 10. Troubleshooting
+## 10. Production cluster example
+
+A reference setup for running OpenSearch on a dedicated server — 2-node
+cluster + Dashboards in Docker Compose, behind an nginx reverse proxy with
+TLS — lives in [examples/](examples/):
+
+| File | Purpose |
+|------|---------|
+| `examples/docker-compose.yml` | 2-node OpenSearch 3 cluster + Dashboards; ports bound to loopback (9201/5602), data in named volumes, admin password injected from a sibling `.env` |
+| `examples/opensearch_dashboards.yml` | Dashboards config: `basePath: /dashboards` for the proxy, self-signed TLS to the cluster |
+| `examples/nginx.conf` | Reverse proxy: `/api/` → cluster (prefix stripped), `/dashboards/` → Dashboards, HTTP→HTTPS redirect, 100M bulk payloads, 300s read timeout |
+
+With that setup, point the module at the proxy:
+
+```ini
+OPENSEARCH_URL=https://opensearch.example.com/api
+OPENSEARCH_ADMIN_USER=admin
+OPENSEARCH_ADMIN_PASSWORD=<strong-password>
+OPENSEARCH_INDEX_NAME=search-index
+OPENSEARCH_VERIFY_SSL=false   # true once real certificates are in place
+```
+
+All files are redacted templates — replace the domain, certificates, and
+password before use, and never commit the real `.env`.
+
+## 11. Troubleshooting
 
 | Symptom | Fix |
 |---------|-----|
