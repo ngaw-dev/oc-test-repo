@@ -35,7 +35,7 @@ This module is its own git repository. Clone it anywhere (e.g. a sibling of your
 project) and register it as a path repository:
 
 ```sh
-git clone <module-repo-url> ../silverstripe-opensearch
+git clone git@github-ngaw:ngaw-dev/oc-test-repo.git ../silverstripe-opensearch
 ```
 
 ```json
