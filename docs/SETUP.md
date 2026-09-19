@@ -125,7 +125,7 @@ How it works:
 ## 6. Create the index and run the first index build
 
 ```sh
-ddev exec ./vendor/bin/sake dev/build flush=1
+ddev exec ./vendor/bin/sake dev/build --flush
 ddev exec ./vendor/bin/sake tasks:CreateSearchIndexTask
 ddev exec ./vendor/bin/sake tasks:IndexSearchDocumentsTask
 ```

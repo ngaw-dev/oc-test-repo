@@ -218,6 +218,6 @@ Adding a new field: add it to the YAML, extend
 throw `RuntimeException` at index time), then recreate the index in dev mode:
 
 ```sh
-ddev exec ./vendor/bin/sake tasks:CreateSearchIndexTask flush=1
+ddev exec ./vendor/bin/sake tasks:CreateSearchIndexTask --flush
 ddev exec ./vendor/bin/sake tasks:ReindexSearchTask
 ```
