@@ -4,6 +4,8 @@ OpenSearch integration for Silverstripe CMS 6. Indexes published BlogPosts into 
 OpenSearch cluster, provides a search facade for controllers, queued jobs for sync
 and nightly rebuilds, and a CMS admin for inspecting indexed documents.
 
+![Module overview](docs/examples/silverstripe-opensearch-module.png)
+
 ## Requirements
 
 - PHP 8.3+
