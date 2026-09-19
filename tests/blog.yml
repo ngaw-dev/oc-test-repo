@@ -1,0 +1,36 @@
+SilverStripe\Blog\Model\Blog:
+  main-blog:
+    Title: Test Blog
+    ParentID: 0
+
+SilverStripe\Blog\Model\BlogTag:
+  tag-rust:
+    Title: Rust Lang
+    BlogID: =>SilverStripe\Blog\Model\Blog.main-blog
+
+SilverStripe\Blog\Model\BlogCategory:
+  category-notes:
+    Title: Notes
+    BlogID: =>SilverStripe\Blog\Model\Blog.main-blog
+
+SilverStripe\Blog\Model\BlogPost:
+  post-short:
+    Title: Short Post
+    ParentID: =>SilverStripe\Blog\Model\Blog.main-blog
+    PublishDate: 2026-01-01 10:00:00
+    Summary: '<p>tiny</p>'
+    Content: '<p>tiny</p>'
+    ReactionUp: 3
+    ReactionDown: 2
+    ReactionClap: 2
+    ReactionHeart: 3
+    Tags:
+      - =>SilverStripe\Blog\Model\BlogTag.tag-rust
+    Categories:
+      - =>SilverStripe\Blog\Model\BlogCategory.category-notes
+  post-long:
+    Title: Long Post
+    ParentID: =>SilverStripe\Blog\Model\Blog.main-blog
+    PublishDate: 2026-02-01 10:00:00
+    Summary: '<p>longer content</p>'
+    Content: '<p>longer content</p>'

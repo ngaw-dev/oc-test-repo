@@ -1,0 +1,9 @@
+---
+Name: opensearch-index-extension
+---
+SilverStripe\Blog\Model\BlogPost:
+  extensions:
+    - AmolSW\OpenSearch\Extensions\BlogPostIndexExtension
+SilverStripe\Blog\Model\Blog:
+  extensions:
+    - AmolSW\OpenSearch\Extensions\BlogIndexExtension
