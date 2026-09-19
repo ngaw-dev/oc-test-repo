@@ -3,7 +3,6 @@
 How `amolsw/silverstripe-opensearch` is structured: who calls what, where the
 boundaries are, and how documents stay in sync with the CMS.
 
-- Interactive diagram: [examples/architecture.html](examples/architecture.html)
 - Static overview image: [examples/silverstripe-opensearch-module.png](examples/silverstripe-opensearch-module.png)
 
 ## Layers
