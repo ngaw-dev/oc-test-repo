@@ -25,7 +25,7 @@ OpenSearch search domain — the service for indexing and querying the OpenSearc
 - Doc `_id` always equals BlogPost ID (PageId)
 - Only the Live stage is indexed; draft-only and archived posts must never appear in the index
 - Nightly chain: 3am `SearchReindexJob` → `SearchIndexConsistencyJob` → retry (max 3) → Broken
-- Queue processing requires cron: `* * * * * cd <project root> && ./vendor/bin/sake tasks:ProcessJobQueueTask`
+- Queue processing requires cron: `* * * * * <project-absolute-path>/vendor/bin/sake tasks:ProcessJobQueueTask`
 
 ## Work Guidance
 
