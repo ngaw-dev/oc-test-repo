@@ -40,7 +40,6 @@ git clone git@github-ngaw:ngaw-dev/oc-test-repo.git ../silverstripe-opensearch
 ```
 
 ```json
-// composer.json (project root)
 {
     "repositories": [
         {

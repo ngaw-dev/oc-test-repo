@@ -43,10 +43,11 @@ Environment variables:
 
 | Variable | Purpose |
 |----------|---------|
-| `OPENSEARCH_HOST` | Cluster host, e.g. `https://localhost:9200` |
+| `OPENSEARCH_URL` | Cluster URL, e.g. `http://opensearch:9200` (DDEV) or `https://host:9200` |
+| `OPENSEARCH_ADMIN_USER` | Basic-auth username (required even for local clusters with security disabled) |
+| `OPENSEARCH_ADMIN_PASSWORD` | Basic-auth password (required even for local clusters with security disabled) |
 | `OPENSEARCH_INDEX_NAME` | Index name (lowercased) |
 | `OPENSEARCH_VERIFY_SSL` | Set `false` to skip TLS verification for self-signed certs |
-| Additional `OPENSEARCH_*` | Passed through to the OpenSearch client factory |
 
 Index field mapping is **not** shipped by the module — each project defines it via
 YAML on `AmolSW\OpenSearch\OpenSearchClientFactory` (e.g. `app/_config/opensearch.yml`).
