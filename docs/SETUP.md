@@ -144,7 +144,7 @@ ddev exec ./vendor/bin/sake tasks:CreateSearchReindexJobTask
 Queue processing requires cron (every minute):
 
 ```cron
-* * * * * cd <project root> && ./vendor/bin/sake tasks:ProcessJobQueueTask
+* * * * * <project-absolute-path>/vendor/bin/sake tasks:ProcessJobQueueTask
 ```
 
 Inspect queue state in the CMS at `/admin/queuedjobs`.
