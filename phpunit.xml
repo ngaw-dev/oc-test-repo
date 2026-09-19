@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Runs the module test suite from the HOST project root, e.g.:
+    php vendor/bin/phpunit -c modules/silverstripe-opensearch/phpunit.xml
+    The bootstrap registers this module's dev autoloader (Tests namespace)
+    on top of the project's vendor/autoload.php.
+-->
+<phpunit bootstrap="./tests/bootstrap.php" colors="true">
+    <testsuites>
+        <testsuite name="silverstripe-opensearch">
+            <directory>tests/</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>

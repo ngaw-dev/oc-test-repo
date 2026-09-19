@@ -29,7 +29,7 @@ OpenSearch search domain — the service for indexing and querying the OpenSearc
 
 ## Work Guidance
 
-- Tests live in `modules/silverstripe-opensearch/tests/` against a dedicated test index (`SearchIndexTestTrait` sets `blog-test-index` env override, creates the index up front, restores the env var and deletes the index after the run, and refuses to run against non-local clusters), never the dev index; the trait relies on the `AmolSW\OpenSearch\Tests\` composer autoload-dev mapping in the root composer.json
+- Tests live in `modules/silverstripe-opensearch/tests/` against a dedicated test index (`SearchIndexTestTrait` sets `blog-test-index` env override, creates the index up front, restores the env var and deletes the index after the run, and refuses to run against non-local clusters), never the dev index; the test namespace is registered by the module's own `tests/bootstrap.php` — no project autoload-dev entry needed
 - `getAllIndexedPageIds()` refreshes the index first — OpenSearch bulk docs are not immediately visible otherwise
 - `testConsistencyThrowsAtAttemptCap` intentionally throws; consistency retries must never exceed `SearchReindexJob::MAX_ATTEMPTS`
 - `createClient()` memoizes the Client per process — do not build clients ad hoc per call; unshared clients multiplied TLS handshakes and contributed to slow search pages (see Known Issues)
@@ -40,7 +40,7 @@ OpenSearch search domain — the service for indexing and querying the OpenSearc
 
 ## Verification
 
-- `ddev exec env SS_PHPUNIT_FLUSH=1 php vendor/bin/phpunit modules/silverstripe-opensearch/tests`
+- `ddev exec env SS_PHPUNIT_FLUSH=1 php vendor/bin/phpunit -c modules/silverstripe-opensearch/phpunit.xml`
 - `ddev php vendor/bin/phpcs modules/silverstripe-opensearch/src app/`
 - Queue state visible in CMS at `/admin/queuedjobs`
 
