@@ -15,7 +15,8 @@ and nightly rebuilds, and a CMS admin for inspecting indexed documents.
 ## Installation
 
 Full step-by-step setup (DDEV cluster, env vars, first index build, cron) is in
-[docs/SETUP.md](docs/SETUP.md).
+[docs/SETUP.md](docs/SETUP.md). Practical code examples (search, relevance
+ordering, indexing, index management) are in [docs/SAMPLES.md](docs/SAMPLES.md).
 
 Quick start — the module is a standalone git repo; register it as a composer
 path repository:
