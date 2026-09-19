@@ -1,7 +1,8 @@
 # Setup Guide
 
 Complete instructions for setting up `amolsw/silverstripe-opensearch` in a
-Silverstripe CMS 6 project running on DDEV.
+Silverstripe CMS 6 project running on DDEV. For practical code examples see
+[SAMPLES.md](SAMPLES.md).
 
 ## 1. Prerequisites
 
